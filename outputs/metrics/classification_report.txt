@@ -1,0 +1,21 @@
+BASELINE
+              precision    recall  f1-score   support
+
+       false       0.38      0.44      0.41       339
+       mixed       0.45      0.37      0.41       476
+        true       0.47      0.50      0.49       448
+
+    accuracy                           0.44      1263
+   macro avg       0.43      0.44      0.43      1263
+weighted avg       0.44      0.44      0.44      1263
+
+OPTIMIZED
+              precision    recall  f1-score   support
+
+       false       0.39      0.45      0.42       339
+       mixed       0.47      0.37      0.41       476
+        true       0.48      0.53      0.50       448
+
+    accuracy                           0.45      1263
+   macro avg       0.45      0.45      0.44      1263
+weighted avg       0.45      0.45      0.45      1263

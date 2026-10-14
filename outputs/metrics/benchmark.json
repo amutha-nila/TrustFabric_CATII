@@ -1,0 +1,199 @@
+﻿{
+    "project":  "TrustFabric",
+    "started_at_utc":  "2026-10-14T06:09:42.024806+00:00",
+    "dataset":  {
+                    "path":  "data/raw/liar.csv",
+                    "source":  "William Yang Wang, LIAR benchmark (2017), official author-hosted archive.",
+                    "source_url":  "https://sites.cs.ucsb.edu/~william/data/liar_dataset.zip",
+                    "license":  "Research use only. Dataset README states original sources retain copyright; no general redistribution license is granted.",
+                    "original_rows_before_cleaning":  12791,
+                    "removed_rows":  26,
+                    "duplicate_text_rows":  26,
+                    "limitations":  "Short US political statements; subjective labels aggregated from six classes into three."
+                },
+    "dataset_rows":  12765,
+    "class_counts":  {
+                         "mixed":  4723,
+                         "true":  4502,
+                         "false":  3540
+                     },
+    "class_counts_by_split":  {
+                                  "train":  {
+                                                "mixed":  3762,
+                                                "true":  3635,
+                                                "false":  2826
+                                            },
+                                  "valid":  {
+                                                "mixed":  485,
+                                                "true":  419,
+                                                "false":  375
+                                            },
+                                  "test":  {
+                                               "mixed":  476,
+                                               "true":  448,
+                                               "false":  339
+                                           }
+                              },
+    "split_rows":  {
+                       "train":  10223,
+                       "valid":  1279,
+                       "test":  1263
+                   },
+    "split_method":  "Official LIAR train/valid/test partitions; exact duplicate statements removed before partitioning.",
+    "labels":  [
+                   "false",
+                   "mixed",
+                   "true"
+               ],
+    "scoring":  "f1_macro",
+    "random_seeds":  {
+                         "split":  42,
+                         "model":  42,
+                         "cross_validation":  42
+                     },
+    "best_cv_f1_macro":  0.43095393142672395,
+    "best_params":  {
+                        "classifier__C":  0.25,
+                        "features__word__ngram_range":  [
+                                                            1,
+                                                            2
+                                                        ]
+                    },
+    "timings_seconds":  {
+                            "baseline_initial_fit_seconds":  0.556,
+                            "baseline_final_fit_seconds":  0.587,
+                            "optimized_search_and_initial_fit_seconds":  54.896,
+                            "optimized_final_fit_seconds":  3.288
+                        },
+    "python":  "3.13.7",
+    "scikit_learn":  "1.9.1",
+    "results":  [
+                    {
+                        "model":  "TF-IDF + Logistic Regression (baseline)",
+                        "split":  "validation",
+                        "accuracy":  0.41985926505082094,
+                        "precision_macro":  0.4199569438740313,
+                        "recall_macro":  0.42349601270684856,
+                        "f1_macro":  0.42053141664074234,
+                        "roc_auc_ovr_macro":  0.621854637583592,
+                        "pr_auc_macro":  0.4419364464886355,
+                        "log_loss":  1.0615710814916908,
+                        "per_class":  {
+                                          "false":  {
+                                                        "precision":  0.3939393939393939,
+                                                        "recall":  0.45066666666666666,
+                                                        "f1":  0.42039800995024873,
+                                                        "support":  375
+                                                    },
+                                          "mixed":  {
+                                                        "precision":  0.4225352112676056,
+                                                        "recall":  0.3711340206185567,
+                                                        "f1":  0.3951701427003293,
+                                                        "support":  485
+                                                    },
+                                          "true":  {
+                                                       "precision":  0.44339622641509435,
+                                                       "recall":  0.4486873508353222,
+                                                       "f1":  0.4460260972716489,
+                                                       "support":  419
+                                                   }
+                                      }
+                    },
+                    {
+                        "model":  "TF-IDF + Logistic Regression (baseline)",
+                        "split":  "test",
+                        "accuracy":  0.43626286619160726,
+                        "precision_macro":  0.43357392183728055,
+                        "recall_macro":  0.43791340282425656,
+                        "f1_macro":  0.433637135392124,
+                        "roc_auc_ovr_macro":  0.6164457068589023,
+                        "pr_auc_macro":  0.4354821626267619,
+                        "log_loss":  1.067443386605928,
+                        "per_class":  {
+                                          "false":  {
+                                                        "precision":  0.382051282051282,
+                                                        "recall":  0.43952802359882004,
+                                                        "f1":  0.40877914951989025,
+                                                        "support":  339
+                                                    },
+                                          "mixed":  {
+                                                        "precision":  0.44783715012722647,
+                                                        "recall":  0.3697478991596639,
+                                                        "f1":  0.4050632911392405,
+                                                        "support":  476
+                                                    },
+                                          "true":  {
+                                                       "precision":  0.4708333333333333,
+                                                       "recall":  0.5044642857142857,
+                                                       "f1":  0.4870689655172414,
+                                                       "support":  448
+                                                   }
+                                      }
+                    },
+                    {
+                        "model":  "Word + Character TF-IDF + tuned Logistic Regression",
+                        "split":  "validation",
+                        "accuracy":  0.4628616106333073,
+                        "precision_macro":  0.4623717532453533,
+                        "recall_macro":  0.46868482477507395,
+                        "f1_macro":  0.46348597276789677,
+                        "roc_auc_ovr_macro":  0.6464425436259426,
+                        "pr_auc_macro":  0.46836176740098406,
+                        "log_loss":  1.0327743447517619,
+                        "per_class":  {
+                                          "false":  {
+                                                        "precision":  0.43953488372093025,
+                                                        "recall":  0.504,
+                                                        "f1":  0.46956521739130436,
+                                                        "support":  375
+                                                    },
+                                          "mixed":  {
+                                                        "precision":  0.45544554455445546,
+                                                        "recall":  0.37938144329896906,
+                                                        "f1":  0.41394825646794153,
+                                                        "support":  485
+                                                    },
+                                          "true":  {
+                                                       "precision":  0.49213483146067416,
+                                                       "recall":  0.522673031026253,
+                                                       "f1":  0.5069444444444444,
+                                                       "support":  419
+                                                   }
+                                      }
+                    },
+                    {
+                        "model":  "Word + Character TF-IDF + tuned Logistic Regression",
+                        "split":  "test",
+                        "accuracy":  0.44813935075217737,
+                        "precision_macro":  0.44584369182502964,
+                        "recall_macro":  0.45031406736735996,
+                        "f1_macro":  0.4448327619669515,
+                        "roc_auc_ovr_macro":  0.6313363412723324,
+                        "pr_auc_macro":  0.44991241351600325,
+                        "log_loss":  1.0449108760406136,
+                        "per_class":  {
+                                          "false":  {
+                                                        "precision":  0.3879093198992443,
+                                                        "recall":  0.45427728613569324,
+                                                        "f1":  0.41847826086956524,
+                                                        "support":  339
+                                                    },
+                                          "mixed":  {
+                                                        "precision":  0.4679144385026738,
+                                                        "recall":  0.36764705882352944,
+                                                        "f1":  0.4117647058823529,
+                                                        "support":  476
+                                                    },
+                                          "true":  {
+                                                       "precision":  0.4817073170731707,
+                                                       "recall":  0.5290178571428571,
+                                                       "f1":  0.5042553191489362,
+                                                       "support":  448
+                                                   }
+                                      }
+                    }
+                ],
+    "validation_policy":  "Hyperparameters selected using training-only three-fold CV. Validation metrics are reported before refitting; final artifacts are refit on train+validation and evaluated once on the held-out test partition.",
+    "leakage_prevention":  "Official source partitions are preserved when available; exact duplicate statement text is removed before splitting; text vectorizers are fitted inside each training fold by the sklearn pipeline.",
+    "publication_comparison":  "Published results are literature context only. No direct numerical comparison is claimed because this three-class mapping and split differ from many LIAR experiments."
+}

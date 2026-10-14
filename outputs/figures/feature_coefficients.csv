@@ -1,0 +1,46 @@
+class,feature,coefficient
+false,word__georgia,-0.39417063690431786
+false,word__has,-0.3975896174876774
+false,word__ever,0.39806289131201167
+false,word__cut,-0.4101609009461149
+false,word__spending,-0.41142052116838246
+false,word__we dont,0.41812046237584116
+false,word__obama,0.41993150288566655
+false,word__since,-0.42507849460834946
+false,word__even,-0.43512721393387077
+false,word__he,-0.44350819173227496
+false,word__percent,-0.4582706743750421
+false,word__day,-0.46858358361876923
+false,word__more,-0.5309798398440032
+false,word__and,-0.5329572733464271
+false,word__than,-0.5569324380689062
+mixed,word__because,0.3326207102396277
+mixed,word__and,0.33493131323373165
+mixed,word__only,-0.3362121359526689
+mixed,word__and the,0.3411665074954021
+mixed,char__ass,0.3428208581542817
+mixed,word__bailout,0.3594910628442006
+mixed,word__said he,0.37097746486265626
+mixed,word__put,0.3720824002502619
+mixed,"char__r, ",0.37518581196050865
+mixed,word__is in,0.3891039380439551
+mixed,word__than the,-0.4162198842974251
+mixed,word__at the,-0.41694611082827804
+mixed,char__ut ,0.41820620135791453
+mixed,word__cut,0.4493775550885369
+mixed,word__percent of,-0.46991395354938814
+true,word__mccain,0.39473054507858296
+true,word__three,0.4085180889477444
+true,word__your,-0.419540791828058
+true,word__million,0.4213852039942587
+true,word__he,0.4238586284796995
+true,word__day,0.42596119937103327
+true,word__still,0.44415369521233206
+true,word__to,-0.45050782945312273
+true,word__half,0.4535692279271478
+true,word__of,0.4599139525630204
+true,word__than the,0.4654335928738552
+true,word__since,0.48232702530595306
+true,word__of the,0.5155297558248141
+true,word__percent of,0.578421968331065
+true,word__than,0.6273224248749316

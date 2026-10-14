@@ -1,0 +1,43 @@
+{
+  "labels": [
+    "false",
+    "mixed",
+    "true"
+  ],
+  "test": {
+    "TF-IDF + Logistic Regression (baseline)": [
+      [
+        149,
+        95,
+        95
+      ],
+      [
+        141,
+        176,
+        159
+      ],
+      [
+        100,
+        122,
+        226
+      ]
+    ],
+    "Word + Character TF-IDF + tuned Logistic Regression": [
+      [
+        154,
+        93,
+        92
+      ],
+      [
+        138,
+        175,
+        163
+      ],
+      [
+        105,
+        106,
+        237
+      ]
+    ]
+  }
+}

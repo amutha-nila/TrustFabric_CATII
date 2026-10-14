@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrustFabric</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; color: #172033; background: #f4f7fb; }
+    body { margin: 0; }
+    main { max-width: 960px; margin: 36px auto; padding: 24px; }
+    .card { background: white; border: 1px solid #dce4ef; border-radius: 18px; padding: 26px; box-shadow: 0 10px 28px #16213e0d; }
+    textarea { width: 100%; min-height: 130px; box-sizing: border-box; padding: 12px; border: 1px solid #bbc7d8; border-radius: 10px; font: inherit; }
+    button { background: #173f73; color: white; border: 0; border-radius: 9px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .65; cursor: wait; }
+    .muted { color: #56657b; font-size: .94rem; }
+    .results { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .result { min-width: 0; border: 1px solid #dce4ef; border-radius: 12px; padding: 16px; }
+    .result h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    .result p { overflow-wrap: anywhere; }
+    .claim-result { border-top: 1px solid #e5eaf1; padding: 10px 0; }
+    .evidence { border-left: 3px solid #cbd5e1; padding: 6px 10px; margin: 10px 0; }
+    .evidence a { color: #174d88; font-weight: 650; overflow-wrap: anywhere; }
+    .evidence-status, .notice { color: #59677b; font-size: .9rem; }
+    .supported { color: #167044; }
+    .contradicted, .mixed_or_conflicting_evidence { color: #a25b00; }
+    .insufficient_evidence, .error { color: #7b4b00; }
+    .error { color: #b42318; }
+    @media (max-width: 700px) { main { margin: 12px auto; padding: 12px; } .results { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>TrustFabric</h1>
+      <p>Claim credibility triage with evidence-aware limitations.</p>
+      <p class="muted">The LIAR-trained model detects dataset-learned language patterns; it is not evidence that a claim is true. Evidence search and model assessment are shown separately.</p>
+      <form id="claim-form">
+        <label for="claim">Claim or AI-generated answer</label>
+        <textarea id="claim" name="text" minlength="5" maxlength="20000" required placeholder="Enter a factual claim or AI-generated answer..."></textarea>
+        <button id="submit" type="submit">Assess claim and check evidence</button>
+      </form>
+      <div class="results">
+        <section class="result" aria-live="polite" aria-labelledby="ml-heading">
+          <h2 id="ml-heading">Dataset model assessment</h2>
+          <p id="ml-result" class="muted">Model output will appear here. It is not a fact check.</p>
+        </section>
+        <section class="result" aria-live="polite" aria-labelledby="evidence-heading">
+          <h2 id="evidence-heading">Evidence-based triage</h2>
+          <div id="evidence-result" class="muted">Evidence search output will appear here.</div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#claim-form');
+    const submitButton = document.querySelector('#submit');
+    const mlResult = document.querySelector('#ml-result');
+    const evidenceResult = document.querySelector('#evidence-result');
+
+    function errorMessage(data, status) {
+      const detail = data && data.detail;
+      if (typeof detail === 'string') return detail;
+      if (Array.isArray(detail)) return detail.map(item => item.msg || 'Invalid request').join('; ');
+      return `Request failed (${status}).`;
+    }
+
+    async function post(path, text) {
+      const response = await fetch(path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      const data = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(errorMessage(data, response.status));
+      if (!data) throw new Error('The backend returned an invalid JSON response.');
+      return data;
+    }
+
+    function renderModel(data) {
+      mlResult.className = '';
+      mlResult.textContent = `${data.prediction} (confidence ${Number(data.confidence_score).toFixed(3)})\n\n${data.interpretation}`;
+    }
+
+    function renderEvidence(data) {
+      evidenceResult.replaceChildren();
+      evidenceResult.className = '';
+      const overall = document.createElement('p');
+      overall.className = data.overall_status;
+      overall.textContent = `Overall: ${data.overall_status.replaceAll('_', ' ')}`;
+      evidenceResult.append(overall);
+
+      const availability = document.createElement('p');
+      availability.className = 'evidence-status';
+      const retrievalMessages = {
+        available: 'Search completed and returned source candidates.',
+        no_results: 'Search completed successfully but returned no results.',
+        unavailable: 'Search provider unavailable; no evidence verdict was made.',
+        partial: 'Search partially completed; some provider requests failed.',
+        not_needed: 'No factual claims were extracted, so search was not run.'
+      };
+      availability.textContent = `Evidence search: ${retrievalMessages[data.evidence_retrieval_status] || data.evidence_retrieval_status}`;
+      evidenceResult.append(availability);
+
+      if (!data.claims.length) {
+        const noClaims = document.createElement('p');
+        noClaims.textContent = data.message;
+        evidenceResult.append(noClaims);
+      }
+
+      for (const claim of data.claims) {
+        const section = document.createElement('article');
+        section.className = 'claim-result';
+        const heading = document.createElement('strong');
+        heading.className = claim.status;
+        heading.textContent = claim.claim_type === 'subjective'
+          ? 'subjective opinion'
+          : claim.status.replaceAll('_', ' ');
+        const statement = document.createElement('p');
+        statement.textContent = claim.claim;
+        const explanation = document.createElement('p');
+        explanation.textContent = claim.explanation;
+        const evidenceStatus = document.createElement('p');
+        evidenceStatus.className = 'evidence-status';
+        evidenceStatus.textContent = `Source search: ${claim.evidence_status.replaceAll('_', ' ')}`;
+        section.append(heading, statement, explanation, evidenceStatus);
+
+        for (const item of claim.evidence) {
+          let url;
+          try { url = new URL(item.url); } catch { continue; }
+          if (!['http:', 'https:'].includes(url.protocol)) continue;
+          const source = document.createElement('div');
+          source.className = 'evidence';
+          const link = document.createElement('a');
+          link.href = url.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = item.title || 'Open source';
+          source.append(link);
+          if (item.published_at) {
+            const published = document.createElement('p');
+            published.className = 'evidence-status';
+            published.textContent = `Published: ${item.published_at}`;
+            source.append(published);
+          }
+          if (item.snippet) {
+            const snippet = document.createElement('p');
+            snippet.textContent = item.snippet;
+            source.append(snippet);
+          }
+          section.append(source);
+        }
+        evidenceResult.append(section);
+      }
+
+      const caveat = document.createElement('p');
+      caveat.className = 'notice';
+      caveat.textContent = data.message;
+      evidenceResult.append(caveat);
+    }
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const text = document.querySelector('#claim').value.trim();
+      submitButton.disabled = true;
+      mlResult.textContent = 'Assessing with the dataset-trained model...';
+      evidenceResult.textContent = 'Searching for sources and assessing available evidence...';
+      const [model, evidence] = await Promise.allSettled([
+        post('/api/predict', text),
+        post('/api/v1/verify', text)
+      ]);
+      if (model.status === 'fulfilled') renderModel(model.value);
+      else {
+        mlResult.className = 'error';
+        mlResult.textContent = model.reason.message;
+      }
+      if (evidence.status === 'fulfilled') renderEvidence(evidence.value);
+      else {
+        evidenceResult.className = 'error';
+        evidenceResult.textContent = evidence.reason.message;
+      }
+      submitButton.disabled = false;
+    });
+  </script>
+</body>
+</html>

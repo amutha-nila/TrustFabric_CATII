@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TrustFabric Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>◈ TrustFabric Settings</h1>
+    <p>Configure the local TrustFabric services. Both default to your own computer.</p>
+    <label>Claim-verification API URL<input id="apiBase" type="url" placeholder="http://127.0.0.1:8000"></label>
+    <label>Privacy and media backend URL<input id="extensionApiBase" type="url" placeholder="http://127.0.0.1:8765"></label>
+    <label>API key (optional; stored on this device and sent only to the configured backend)<input id="apiKey" type="password" autocomplete="off"></label>
+    <label class="check"><input id="autoPrivacyWarnings" type="checkbox"> Show local warnings when files are selected on supported sites</label>
+    <button id="save">Save settings</button>
+    <p id="status" role="status"></p>
+    <p class="note">Never enter a production secret into an extension on a shared or untrusted browser profile. For hosted deployment, use HTTPS and configure backend authentication.</p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

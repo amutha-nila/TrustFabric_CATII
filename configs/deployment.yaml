@@ -1,0 +1,10 @@
+app:
+  title: TrustFabric Claim Credibility Assistant
+  max_text_chars: 10000
+  model_path: outputs/models/trustfabric_model.joblib
+  metrics_path: outputs/metrics/benchmark.json
+security:
+  store_user_submissions: false
+  allow_origins:
+    - http://127.0.0.1:8000
+    - http://localhost:8000

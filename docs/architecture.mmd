@@ -1,0 +1,13 @@
+flowchart TD
+    A[LIAR-style claim dataset CSV] --> B[Cleaning and 3-class label mapping]
+    B --> C[Stratified 80/20 train-test split]
+    C --> D[Baseline: word TF-IDF + Logistic Regression]
+    C --> E[Word + character TF-IDF features]
+    E --> F[3-fold GridSearchCV: macro-F1]
+    F --> G[Tuned Logistic Regression]
+    D --> H[Held-out evaluation]
+    G --> H
+    H --> I[Metrics, confusion matrix, ROC/PR, coefficients, error table]
+    G --> J[Saved model artifact]
+    J --> K[FastAPI local UI/API]
+    J --> L[Docker / Hugging Face Spaces Gradio UI]

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "TrustFabric — AI Trust & Privacy Layer",
+  "version": "1.0.0",
+  "description": "Inline evidence checks, media risk analysis, and privacy warnings for supported AI chat websites.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8765/*",
+    "http://localhost:8765/*",
+    "https://*.hf.space/*",
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://gemini.google.com/*"
+  ],
+  "content_scripts": [{
+    "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*", "https://gemini.google.com/*"],
+    "js": ["answer-extraction.js", "content.js"],
+    "css": ["styles.css"],
+    "run_at": "document_idle"
+  }],
+  "options_page": "options.html",
+  "action": { "default_title": "TrustFabric settings" }
+}

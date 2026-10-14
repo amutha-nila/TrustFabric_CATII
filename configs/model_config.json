@@ -1,0 +1,21 @@
+{
+  "project": "TrustFabric",
+  "task": "three-class claim credibility classification",
+  "dataset": "LIAR public benchmark (downloaded via Hugging Face Datasets or supplied CSV)",
+  "text_column": "statement",
+  "label_column": "label",
+  "label_mapping": {
+    "pants-fire": "false",
+    "false": "false",
+    "barely-true": "mixed",
+    "half-true": "mixed",
+    "mostly-true": "true",
+    "true": "true"
+  },
+  "test_size": 0.2,
+  "random_state": 42,
+  "cv_folds": 3,
+  "scoring": "f1_macro",
+  "max_features": 50000,
+  "ngram_range": [1, 2]
+}

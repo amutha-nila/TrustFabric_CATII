@@ -1,0 +1,74 @@
+[
+  {
+    "rank": 2,
+    "mean_test_f1_macro": 0.42517264195089616,
+    "std_test_f1_macro": 0.005730309219465519,
+    "params": {
+      "classifier__C": 0.25,
+      "features__word__ngram_range": [
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "rank": 1,
+    "mean_test_f1_macro": 0.43095393142672395,
+    "std_test_f1_macro": 0.004853675334891678,
+    "params": {
+      "classifier__C": 0.25,
+      "features__word__ngram_range": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "rank": 4,
+    "mean_test_f1_macro": 0.41754794530762757,
+    "std_test_f1_macro": 0.00685897363990848,
+    "params": {
+      "classifier__C": 1.0,
+      "features__word__ngram_range": [
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "rank": 3,
+    "mean_test_f1_macro": 0.42242132745749333,
+    "std_test_f1_macro": 0.0036832233217472094,
+    "params": {
+      "classifier__C": 1.0,
+      "features__word__ngram_range": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "rank": 6,
+    "mean_test_f1_macro": 0.403822820567255,
+    "std_test_f1_macro": 0.005129530783199577,
+    "params": {
+      "classifier__C": 4.0,
+      "features__word__ngram_range": [
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "rank": 5,
+    "mean_test_f1_macro": 0.41606197182066534,
+    "std_test_f1_macro": 0.0032126586371964885,
+    "params": {
+      "classifier__C": 4.0,
+      "features__word__ngram_range": [
+        1,
+        2
+      ]
+    }
+  }
+]

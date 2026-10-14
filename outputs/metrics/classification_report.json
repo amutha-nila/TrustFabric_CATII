@@ -1,0 +1,68 @@
+{
+  "TF-IDF + Logistic Regression (baseline)": {
+    "false": {
+      "precision": 0.382051282051282,
+      "recall": 0.43952802359882004,
+      "f1-score": 0.40877914951989025,
+      "support": 339.0
+    },
+    "mixed": {
+      "precision": 0.44783715012722647,
+      "recall": 0.3697478991596639,
+      "f1-score": 0.4050632911392405,
+      "support": 476.0
+    },
+    "true": {
+      "precision": 0.4708333333333333,
+      "recall": 0.5044642857142857,
+      "f1-score": 0.4870689655172414,
+      "support": 448.0
+    },
+    "accuracy": 0.43626286619160726,
+    "macro avg": {
+      "precision": 0.43357392183728055,
+      "recall": 0.43791340282425656,
+      "f1-score": 0.433637135392124,
+      "support": 1263.0
+    },
+    "weighted avg": {
+      "precision": 0.43833665986482806,
+      "recall": 0.43626286619160726,
+      "f1-score": 0.4351489745219679,
+      "support": 1263.0
+    }
+  },
+  "Word + Character TF-IDF + tuned Logistic Regression": {
+    "false": {
+      "precision": 0.3879093198992443,
+      "recall": 0.45427728613569324,
+      "f1-score": 0.41847826086956524,
+      "support": 339.0
+    },
+    "mixed": {
+      "precision": 0.4679144385026738,
+      "recall": 0.36764705882352944,
+      "f1-score": 0.4117647058823529,
+      "support": 476.0
+    },
+    "true": {
+      "precision": 0.4817073170731707,
+      "recall": 0.5290178571428571,
+      "f1-score": 0.5042553191489362,
+      "support": 448.0
+    },
+    "accuracy": 0.44813935075217737,
+    "macro avg": {
+      "precision": 0.44584369182502964,
+      "recall": 0.45031406736735996,
+      "f1-score": 0.4448327619669515,
+      "support": 1263.0
+    },
+    "weighted avg": {
+      "precision": 0.45133286636729775,
+      "recall": 0.44813935075217737,
+      "f1-score": 0.4463741198840111,
+      "support": 1263.0
+    }
+  }
+}
